@@ -34,10 +34,10 @@ def geoparse(text):
             name = entity.text if not entity.text.startswith('the') else entity.text[4:].strip()
             start = entity.start_char if not entity.text.startswith('the') else entity.start_char + 4
             end = entity.end_char
-            near_inp = pad_list(CONTEXT_LENGTH / 2, [x for x in doc[max(0, entity.start - CONTEXT_LENGTH / 2):entity.start]], True, padding) + \
-                       pad_list(CONTEXT_LENGTH / 2, [x for x in doc[entity.end: entity.end + CONTEXT_LENGTH / 2]], False, padding)
-            far_inp = pad_list(CONTEXT_LENGTH / 2, [x for x in doc[max(0, entity.start - CONTEXT_LENGTH):max(0, entity.start - CONTEXT_LENGTH / 2)]], True, padding) + \
-                      pad_list(CONTEXT_LENGTH / 2, [x for x in doc[entity.end + CONTEXT_LENGTH / 2: entity.end + CONTEXT_LENGTH]], False, padding)
+            near_inp = pad_list(CONTEXT_LENGTH // 2, [x for x in doc[max(0, entity.start - CONTEXT_LENGTH // 2):entity.start]], True, padding) + \
+                       pad_list(CONTEXT_LENGTH // 2, [x for x in doc[entity.end: entity.end + CONTEXT_LENGTH // 2]], False, padding)
+            far_inp = pad_list(CONTEXT_LENGTH // 2, [x for x in doc[max(0, entity.start - CONTEXT_LENGTH):max(0, entity.start - CONTEXT_LENGTH // 2)]], True, padding) + \
+                      pad_list(CONTEXT_LENGTH // 2, [x for x in doc[entity.end + CONTEXT_LENGTH // 2: entity.end + CONTEXT_LENGTH]], False, padding)
             map_vector = text2mapvec(doc=near_inp + far_inp, mapping=ENCODING_MAP_1x1, outliers=OUTLIERS_MAP_1x1, polygon_size=1, db=conn, exclude=name)
 
             context_words, entities_strings = [], []
