@@ -42,7 +42,7 @@ def text2mapvec(doc, mapping, outliers, polygon_size, db, exclude):
                 entities.extend(coords)
             location = u""
 
-    entities = sorted(entities, key=lambda (a, b, c, d): c, reverse=True)
+    entities = sorted(entities, key=lambda a_b_c_d1: a_b_c_d1[2], reverse=True)
     mapvec = np.zeros(len(mapping), )
 
     if len(entities) == 0:
@@ -86,7 +86,7 @@ def get_coordinates(con, loc_name):
     result = con.execute(u"SELECT METADATA FROM GEO WHERE NAME = ?", (loc_name.lower(),)).fetchone()
     if result:
         result = eval(result[0])  # Do not remove the sorting, the function below assumes sorted results!
-        return sorted(result, key=lambda (a, b, c, d): c, reverse=True)
+        return sorted(result, key=lambda a_b_c_d: a_b_c_d[2], reverse=True)
     else:
         return []
 

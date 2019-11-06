@@ -75,7 +75,7 @@ def geoparse(text):
             for candidate in candidates:
                 err = great_circle(prediction, (float(candidate[0]), float(candidate[1]))).km
                 best_candidate.append((err - (err * max(1, candidate[2]) / max(1, max_pop)) * bias, (float(candidate[0]), float(candidate[1]))))
-            best_candidate = sorted(best_candidate, key=lambda (a, b): a)[0]
+            best_candidate = sorted(best_candidate, key=lambda a_b: a_b[0])[0]
 
             # England,, England,, 51.5,, -0.11,, 669,, 676 || - use evaluation script to test correctness
             print(name, start, end)
