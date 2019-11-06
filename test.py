@@ -18,7 +18,7 @@ else:
     test_data = u"geovirus"  # or edit this line if running inside an IDE editor
 
 saved_model_file = u"../data/weights"
-print(u"Testing:", test_data, u"with weights:", saved_model_file)
+print((u"Testing:", test_data, u"with weights:", saved_model_file))
 word_to_index = pickle.load(open(u"data/words2index.pkl"))  # This is the vocabulary file
 #  --------------------------------------------------------------------------------------------------------------------
 print(u'Loading model...')
@@ -37,7 +37,7 @@ for prediction, (y, name, context) in zip(model.predict_generator(generate_array
     candidates = get_coordinates(conn.cursor(), name)
 
     if len(candidates) == 0:
-        print(u"Don't have an entry for", name, u"in GeoNames")
+        print((u"Don't have an entry for", name, u"in GeoNames"))
         raise Exception(u"Check your database, buddy :-)")
 
     # candidates = [candidates[0]]  # Uncomment for population heuristic.
@@ -68,7 +68,7 @@ for prediction, (y, name, context) in zip(model.predict_generator(generate_array
     # ------------------ END OF DIAGNOSTICS -----------------
 
 print_stats(final_errors)
-print(u"Processed file", file_name)
+print((u"Processed file", file_name))
 
 # ------------------------ VISUALISATION ------------------------------
 # import matplotlib.pyplot as plt

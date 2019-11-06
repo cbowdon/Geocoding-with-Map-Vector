@@ -47,7 +47,7 @@ if False:
                 if gap < dist:
                     dist = gap
             if dist > 1000:
-                print u"Distance is large, please check if this is normal.", name, url, dist, lat, lon
+                print(u"Distance is large, please check if this is normal.", name, url, dist, lat, lon)
 
 # -------------------------------------------------- NUMBERS -------------------------------------------------------
 
@@ -68,16 +68,16 @@ if False:
             if cont is not None:
                 continents += 1
             counter.append(name.text)
-    print "Total Locations:", len(counter)
+    print("Total Locations:", len(counter))
     counter = Counter(counter)
-    print "Unique Locations:", len(counter)
-    print "Most Common:", counter.most_common()
-    print "Continents", continents
+    print("Unique Locations:", len(counter))
+    print("Most Common:", counter.most_common())
+    print("Continents", continents)
     counter = [j for (i, j) in counter.most_common()]
-    print "Mean:", numpy.mean(counter)
-    print "Median:", numpy.median(counter)
-    print "Articles:", articles
-    print "Total words:", len(words)
+    print("Mean:", numpy.mean(counter))
+    print("Median:", numpy.median(counter))
+    print("Articles:", articles)
+    print("Total words:", len(words))
 
 
 # ---------------------------------------------- GENERATION ------------------------------------------------
@@ -118,7 +118,7 @@ if False:
         c += 1
     f.close()
     counter = Counter(counter)
-    print counter.most_common()
+    print(counter.most_common())
 
 # --------------------------------------SUBSAMPLING FOR INTER-ANNOTATOR AGREEMENT--------------------------------------
 
@@ -174,12 +174,12 @@ if False:
             start = int(line)
 
     intersection = Counter(iaa_check) & Counter(iaa_answers)
-    print len(intersection)
+    print(len(intersection))
     check = Counter(iaa_check) - intersection
     answers = Counter(iaa_answers) - intersection
     iaa_check = list(check.elements())
     iaa_answers = list(answers.elements())
-    print iaa_check
-    print iaa_answers
+    print(iaa_check)
+    print(iaa_answers)
 
 # ----------------------------------------- END -------------------------------------------

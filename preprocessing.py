@@ -31,12 +31,12 @@ def print_stats(accuracy):
     :param accuracy: a list of geocoding errors
     """
     print("==============================================================================================")
-    print(u"Median error:", np.median(sorted(accuracy)))
-    print(u"Mean error:", np.mean(accuracy))
+    print((u"Median error:", np.median(sorted(accuracy))))
+    print((u"Mean error:", np.mean(accuracy)))
     accuracy = np.log(np.array(accuracy) + 1)
     k = np.log(161)
-    print u"Accuracy to 161 km: ", sum([1.0 for dist in accuracy if dist < k]) / len(accuracy)
-    print u"AUC = ", np.trapz(accuracy) / (np.log(20039) * (len(accuracy) - 1))  # Trapezoidal rule.
+    print(u"Accuracy to 161 km: ", sum([1.0 for dist in accuracy if dist < k]) / len(accuracy))
+    print(u"AUC = ", np.trapz(accuracy) / (np.log(20039) * (len(accuracy) - 1)))  # Trapezoidal rule.
     print("==============================================================================================")
 
 
@@ -199,7 +199,7 @@ def populate_sql():
 
     for gn in geo_names:
         c.execute(u"INSERT INTO GEO VALUES (?, ?)", (gn, str(list(geo_names[gn]))))
-    print(u"Entries saved:", len(geo_names))
+    print((u"Entries saved:", len(geo_names)))
     conn.commit()
     conn.close()
 
@@ -313,7 +313,7 @@ def generate_training_data():
             lat = line[2]
             lon = line[3]
             string = ""
-            print(u"Processed", limit, u"Skipped:", skipped, u"Name:", u" ".join(target))
+            print((u"Processed", limit, u"Skipped:", skipped, u"Name:", u" ".join(target)))
         else:
             string += line
     o.close()
@@ -407,7 +407,7 @@ def generate_evaluation_data(corpus, file_name):
                         o.write(str(target_grid) + u"\t" + str([t.lower() for t in lookup.split()][:TARGET_LENGTH]))
                         o.write(u"\t" + str(entities_near) + u"\t" + str(entities_far) + u"\n")
             if not captured:
-                print line_no, line, target, start, end
+                print(line_no, line, target, start, end)
     o.close()
 
 
@@ -451,13 +451,13 @@ def generate_vocabulary(path, min_words, min_entities):
     for word in words:
         if words[word] > min_words:
             vocab_words.add(word)
-    print(u"Words saved:", len(vocab_words))
+    print((u"Words saved:", len(vocab_words)))
 
     locations = Counter(locations)
     for location in locations:
         if locations[location] > min_entities:
             vocab_locations.add(location.replace(u"**LOC**", u""))
-    print(u"Locations saved:", len(vocab_locations))
+    print((u"Locations saved:", len(vocab_locations)))
 
     vocabulary = vocab_words.union(vocab_locations)
     word_to_index = dict([(w, i) for i, w in enumerate(vocabulary)])

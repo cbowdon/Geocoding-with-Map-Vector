@@ -38,12 +38,12 @@ for line in codecs.open(input_file, u"r", encoding=u"utf-8"):
                 distance.append(great_circle(wiki_coordinates, (float(candidate[0]), float(candidate[1]))).kilometers)
             distance = sorted(distance)
             if distance[0] > max_distance:
-                print(name, distance[0])
+                print((name, distance[0]))
                 filtered_count += 1
             else:
                 out.write(line)
                 saved_count += 1
 
-print(u"Saved", saved_count, u"samples.")
+print((u"Saved", saved_count, u"samples."))
 if filtering:
-    print(u"Filtered:", filtered_count, u"samples.")
+    print((u"Filtered:", filtered_count, u"samples."))

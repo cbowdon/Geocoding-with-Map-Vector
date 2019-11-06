@@ -11,10 +11,10 @@ from preprocessing import BATCH_SIZE, EMBEDDING_DIMENSION, CONTEXT_LENGTH, UNKNO
 from preprocessing import TARGET_LENGTH, generate_arrays_from_file, ENCODING_MAP_2x2, ENCODING_MAP_1x1
 from subprocess import check_output
 
-print(u"Embedding Dimension:", EMBEDDING_DIMENSION)
-print(u"Input length (each side):", CONTEXT_LENGTH)
+print((u"Embedding Dimension:", EMBEDDING_DIMENSION))
+print((u"Input length (each side):", CONTEXT_LENGTH))
 word_to_index = pickle.load(open(u"data/words2index.pkl"))
-print(u"Vocabulary Size:", len(word_to_index))
+print((u"Vocabulary Size:", len(word_to_index)))
 
 vectors = {UNKNOWN: np.ones(EMBEDDING_DIMENSION), u'0': np.ones(EMBEDDING_DIMENSION)}
 for line in codecs.open(u"../data/glove.twitter." + str(EMBEDDING_DIMENSION) + u"d.txt", encoding=u"utf-8"):
@@ -22,7 +22,7 @@ for line in codecs.open(u"../data/glove.twitter." + str(EMBEDDING_DIMENSION) + u
         continue
     t = line.split()
     vectors[t[0]] = [float(x) for x in t[1:]]
-print(u'Vectors...', len(vectors))
+print((u'Vectors...', len(vectors)))
 
 emb_weights = np.zeros((len(word_to_index), EMBEDDING_DIMENSION))
 oov = 0
@@ -35,7 +35,7 @@ for w in word_to_index:
 
 emb_weights = np.array([emb_weights])
 print(u'Done preparing vectors...')
-print(u"OOV (no vectors):", oov)
+print((u"OOV (no vectors):", oov))
 #  --------------------------------------------------------------------------------------------------------------------
 print(u'Building model...')
 embeddings = Embedding(len(word_to_index), EMBEDDING_DIMENSION, input_length=CONTEXT_LENGTH * 2, weights=emb_weights)

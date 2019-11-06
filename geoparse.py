@@ -65,7 +65,7 @@ def geoparse(text):
             candidates = get_coordinates(conn, name)
 
             if len(candidates) == 0:
-                print(u"Don't have an entry for", name, u"in GeoNames")
+                print((u"Don't have an entry for", name, u"in GeoNames"))
                 continue
 
             max_pop = candidates[0][2]
@@ -78,8 +78,8 @@ def geoparse(text):
             best_candidate = sorted(best_candidate, key=lambda (a, b): a)[0]
 
             # England,, England,, 51.5,, -0.11,, 669,, 676 || - use evaluation script to test correctness
-            print name, start, end
-            print u"Coordinates:", best_candidate[1]
+            print(name, start, end)
+            print(u"Coordinates:", best_candidate[1])
 
 
 # Example usage of the geoparse function below reading from a directory and parsing all files.
@@ -87,5 +87,5 @@ directory = u"/Users/milangritta/PycharmProjects/data/lgl/"
 files = [f for f in listdir(directory) if isfile(directory + f)]
 for f in files:
     for line in codecs.open(directory + f, encoding="utf-8"):
-        print line
+        print(line)
         geoparse(line)
