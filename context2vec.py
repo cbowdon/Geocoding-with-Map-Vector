@@ -17,7 +17,7 @@ word_to_index = pickle.load(open(u"data/words2index.pkl"))
 print((u"Vocabulary Size:", len(word_to_index)))
 
 vectors = {UNKNOWN: np.ones(EMBEDDING_DIMENSION), u'0': np.ones(EMBEDDING_DIMENSION)}
-for line in codecs.open(u"../data/glove.twitter." + str(EMBEDDING_DIMENSION) + u"d.txt", encoding=u"utf-8"):
+for line in codecs.open(u"big_data/glove.twitter." + str(EMBEDDING_DIMENSION) + u"d.txt", encoding=u"utf-8"):
     if line.strip() == "":
         continue
     t = line.split()
@@ -75,9 +75,9 @@ model.compile(loss=u'categorical_crossentropy', optimizer=u'rmsprop', metrics=[u
 
 print(u'Finished building model...')
 #  --------------------------------------------------------------------------------------------------------------------
-checkpoint = ModelCheckpoint(filepath=u"../data/weights.{epoch:02d}-{acc:.2f}.hdf5", verbose=0)
+checkpoint = ModelCheckpoint(filepath=u"big_data/weights.{epoch:02d}-{acc:.2f}.hdf5", verbose=0)
 early_stop = EarlyStopping(monitor=u'acc', patience=5)
-file_name = u"../data/train_wiki_uniform.txt"
+file_name = u"big_data/train_wiki_uniform.txt"
 model.fit_generator(generate_arrays_from_file_lstm(file_name, word_to_index),
                     steps_per_epoch=int(check_output(["wc", file_name]).split()[0]) / BATCH_SIZE,
                     epochs=250, callbacks=[checkpoint, early_stop])

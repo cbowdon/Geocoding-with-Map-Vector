@@ -101,7 +101,7 @@ def buildMapVec(text):
     ENCODING_MAP = pickle.load(open(u"data/1x1_encode_map.pkl"))  # the resolution of the map
     OUTLIERS_MAP = pickle.load(open(u"data/1x1_outliers_map.pkl"))  # dimensions must match the above
     nlp = spacy.load(u'en_core_web_lg')  # or spacy.load(u'en') depending on your Spacy Download (simple or full)
-    conn = sqlite3.connect(u'../data/geonames.db').cursor()  # this DB can be downloaded using the GitHub link
+    conn = sqlite3.connect(u'big_data/geonames.db').cursor()  # this DB can be downloaded using the GitHub link
     map_vector = text2mapvec(doc=nlp(text), mapping=ENCODING_MAP, outliers=OUTLIERS_MAP, polygon_size=1, db=conn, exclude=u"Cairo")
     print(map_vector)
 

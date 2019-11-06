@@ -17,7 +17,7 @@ if len(sys.argv) > 1:
 else:
     test_data = u"geovirus"  # or edit this line if running inside an IDE editor
 
-saved_model_file = u"../data/weights"
+saved_model_file = u"big_data/weights"
 print((u"Testing:", test_data, u"with weights:", saved_model_file))
 word_to_index = pickle.load(open(u"data/words2index.pkl"))  # This is the vocabulary file
 #  --------------------------------------------------------------------------------------------------------------------
@@ -28,7 +28,7 @@ print(u'Finished loading model...')
 print(u'Crunching numbers, sit tight...')
 # errors = codecs.open(u"errors.tsv", u"w", encoding=u"utf-8")
 # Uncomment the above line for error diagnostics, also the section below.
-conn = sqlite3.connect(u'../data/geonames.db')
+conn = sqlite3.connect(u'big_data/geonames.db')
 file_name = u"data/eval_" + test_data + u".txt"
 final_errors = []
 for prediction, (y, name, context) in zip(model.predict_generator(generate_arrays_from_file(file_name, word_to_index, train=False),

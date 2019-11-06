@@ -95,3 +95,5 @@ data/eval_wiki_gold.txt
 errors.tsv
 gpu/
 output.txt
+
+big_data

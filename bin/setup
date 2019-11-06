@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+if [ ! -d big_data ]; then
+    remote_host='https://www.repository.cam.ac.uk/bitstream/handle/1810/277772'
+    mkdir big_data &&
+        cd big_data &&
+        curl -O "${remote_host}/weights.zip" &&
+        unzip weights.zip &&
+        curl -O "${remote_host}/geonames.db.zip" &&
+        unzip geonames.db.zip &&
+        # curl -O "${remote_host}/allCountries.txt.zip?sequence=4&isAllowed=y" &&
+        # unzip allCountries.txt.zip &&
+        # etc. for all the optional downloads
+        cd -
+fi
+
+python3 -m venv venv &&
+    venv/bin/pip install --upgrade pip &&
+    venv/bin/pip install -r requirements.txt &&
+    venv/bin/python3 -m spacy download en_core_web_lg

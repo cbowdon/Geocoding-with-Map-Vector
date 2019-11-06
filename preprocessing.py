@@ -170,7 +170,7 @@ def populate_sql():
     geo_names = {}
     p_map = {"PPLC": 100000, "PCLI": 100000, "PCL": 100000, "PCLS": 10000, "PCLF": 10000, "CONT": 100000, "RGN": 100000}
 
-    for line in codecs.open(u"../data/allCountries.txt", u"r", encoding=u"utf-8"):
+    for line in codecs.open(u"big_data/allCountries.txt", u"r", encoding=u"utf-8"):
         line = line.split("\t")
         feat_code = line[7]
         class_code = line[6]
@@ -191,7 +191,7 @@ def populate_sql():
                     pop = get_population(class_code, feat_code, p_map, pop)
                     geo_names[name] = {(float(line[4]), float(line[5]), pop, feat_code)}
 
-    conn = sqlite3.connect(u'../data/geonames.db')
+    conn = sqlite3.connect(u'big_data/geonames.db')
     c = conn.cursor()
     # c.execute("CREATE TABLE GEO (NAME VARCHAR(100) PRIMARY KEY NOT NULL, METADATA VARCHAR(5000) NOT NULL);")
     c.execute(u"DELETE FROM GEO")  # alternatively, delete the database file.
@@ -224,12 +224,12 @@ def generate_training_data():
     Files: geonames.db and geowiki.txt both inside the data folder (see README)
     Alternatively, create your own with http://medialab.di.unipi.it/wiki/Wikipedia_Extractor
     """
-    conn = sqlite3.connect(u'../data/geonames.db')
+    conn = sqlite3.connect(u'big_data/geonames.db')
     c = conn.cursor()
     nlp = spacy.load(u'en')  # or spacy.load(u'en_core_web_lg') depending on your Spacy Download (simple, full)
     padding = nlp(u"0")[0]
-    inp = codecs.open(u"../data/geowiki.txt", u"r", encoding=u"utf-8")
-    o = codecs.open(u"../data/train_wiki.txt", u"w", encoding=u"utf-8")
+    inp = codecs.open(u"big_data/geowiki.txt", u"r", encoding=u"utf-8")
+    o = codecs.open(u"big_data/train_wiki.txt", u"w", encoding=u"utf-8")
     lat, lon = u"", u""
     target, string = u"", u""
     skipped = 0
@@ -325,11 +325,11 @@ def generate_evaluation_data(corpus, file_name):
     :param corpus: name of the dataset such as LGL, GEOVIRUS or WIKTOR
     :param file_name: an affix, in case you're creating several versions of the same dataset
     """
-    conn = sqlite3.connect(u'../data/geonames.db')
+    conn = sqlite3.connect(u'big_data/geonames.db')
     c = conn.cursor()
     nlp = spacy.load(u'en')  # or spacy.load(u'en_core_web_lg'), it depends on your choice of model
     padding = nlp(u"0")[0]
-    directory = u"../data/" + corpus + u"/"
+    directory = u"big_data/" + corpus + u"/"
     o = codecs.open(u"data/eval_" + corpus + file_name + u".txt", u"w", encoding=u"utf-8")
     line_no = 0 if corpus == u"lgl" else -1
 
@@ -646,7 +646,7 @@ def shrink_map_vector(polygon_size):
     :param polygon_size: the size of each polygon such as 1x1 or 2x2 or 3x3 degrees (integer)
     """
     map_vector = np.zeros((180 / polygon_size) * (360 / polygon_size),)
-    for line in codecs.open(u"../data/allCountries.txt", u"r", encoding=u"utf-8"):
+    for line in codecs.open(u"big_data/allCountries.txt", u"r", encoding=u"utf-8"):
         line = line.split("\t")
         lat, lon = float(line[4]), float(line[5])
         index = coord_to_index((lat, lon), polygon_size=polygon_size)
@@ -661,7 +661,7 @@ def oracle(path):
     :param path: file path to evaluate
     """
     final_errors = []
-    conn = sqlite3.connect(u'../data/geonames.db')
+    conn = sqlite3.connect(u'big_data/geonames.db')
     for line in codecs.open(path, "r", encoding="utf-8"):
         line = line.strip().split("\t")
         coordinates = (float(line[0]), float(line[1]))
@@ -674,13 +674,13 @@ def oracle(path):
 
 # --------------------------------------------- INVOKE FUNCTIONS ---------------------------------------------------
 # prepare_geocorpora()
-# print get_coordinates(sqlite3.connect('../data/geonames.db').cursor(), u"dublin")
+# print get_coordinates(sqlite3.connect('big_data/geonames.db').cursor(), u"dublin")
 # generate_training_data()
 # generate_evaluation_data(corpus="geovirus", file_name="")
-# generate_vocabulary(path=u"../data/train_wiki.txt", min_words=9, min_entities=1)
+# generate_vocabulary(path=u"big_data/train_wiki.txt", min_words=9, min_entities=1)
 # shrink_map_vector(2)
 # oracle(u"data/eval_geovirus_gold.txt")
-# conn = sqlite3.connect('../data/geonames.db')
+# conn = sqlite3.connect('big_data/geonames.db')
 # c = conn.cursor()
 # c.execute("INSERT INTO GEO VALUES (?, ?)", (u"darfur", u"[(13.5, 23.5, 0), (44.05135, -94.83804, 106)]"))
 # c.execute("DELETE FROM GEO WHERE name = 'darfur'")
@@ -730,12 +730,12 @@ def oracle(path):
 # print s.getvalue()
 
 # ----------- VISUALISATION OF DIFFERENT LOCATIONS -------------
-# print len(get_coordinates(sqlite3.connect('../data/geonames.db').cursor(), u"Melbourne"))
-# coord = get_coordinates(sqlite3.connect('../data/geonames.db').cursor(), u"Giza")
+# print len(get_coordinates(sqlite3.connect('big_data/geonames.db').cursor(), u"Melbourne"))
+# coord = get_coordinates(sqlite3.connect('big_data/geonames.db').cursor(), u"Giza")
 # print coord
-# coord.extend(get_coordinates(sqlite3.connect('../data/geonames.db').cursor(), u"Giza Plateau"))
-# coord.extend(get_coordinates(sqlite3.connect('../data/geonames.db').cursor(), u"Cairo"))
-# coord.extend(get_coordinates(sqlite3.connect('../data/geonames.db').cursor(), u"Egypt"))
+# coord.extend(get_coordinates(sqlite3.connect('big_data/geonames.db').cursor(), u"Giza Plateau"))
+# coord.extend(get_coordinates(sqlite3.connect('big_data/geonames.db').cursor(), u"Cairo"))
+# coord.extend(get_coordinates(sqlite3.connect('big_data/geonames.db').cursor(), u"Egypt"))
 # coord = sorted(coord, key=lambda (a, b, c, d): c, reverse=True)
 # x = construct_map_vector_full_scale(coord, polygon_size=2)
 # x = np.reshape(x, newshape=((180 / 2), (360 / 2)))
@@ -744,7 +744,7 @@ def oracle(path):
 # ---------- DUMP DATABASE ------
 # import sqlite3
 #
-# con = sqlite3.connect('../data/geonames.db')
+# con = sqlite3.connect('big_data/geonames.db')
 # with codecs.open('dump.sql', 'w', 'utf-8') as f:
 #     for line in con.iterdump():
 #         f.write('%s\n' % line)

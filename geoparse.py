@@ -11,9 +11,9 @@ from preprocessing import index_to_coord, ENCODING_MAP_1x1, OUTLIERS_MAP_1x1, ge
 from preprocessing import CONTEXT_LENGTH, pad_list, TARGET_LENGTH, UNKNOWN, REVERSE_MAP_2x2
 from text2mapVec import text2mapvec
 
-model = load_model("../data/weights")  # weights to be downloaded from Cambridge Uni repo, see GitHub.
+model = load_model("big_data/weights")  # weights to be downloaded from Cambridge Uni repo, see GitHub.
 nlp = spacy.load(u'en_core_web_lg')  # or spacy.load(u'en') depending on your Spacy Download (simple or full)
-conn = sqlite3.connect(u'../data/geonames.db').cursor()  # this DB can be downloaded using the GitHub link
+conn = sqlite3.connect(u'big_data/geonames.db').cursor()  # this DB can be downloaded using the GitHub link
 padding = nlp(u"0")[0]  # Do I need to explain? :-)
 word_to_index = pickle.load(open(u"data/words2index.pkl"))  # This is the vocabulary file
 
@@ -83,7 +83,7 @@ def geoparse(text):
 
 
 # Example usage of the geoparse function below reading from a directory and parsing all files.
-directory = u"/Users/milangritta/PycharmProjects/data/lgl/"
+directory = u"/Users/milangritta/PycharmProjecbig_data/lgl/"
 files = [f for f in listdir(directory) if isfile(directory + f)]
 for f in files:
     for line in codecs.open(directory + f, encoding="utf-8"):

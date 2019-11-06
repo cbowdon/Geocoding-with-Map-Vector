@@ -15,7 +15,7 @@ if False:
     correct indexing of location names i.e. start and end character positions.
     """
     tree = ET.parse(u'data/GeoVirus.xml')
-    conn = sqlite3.connect(u'../data/geonames.db')
+    conn = sqlite3.connect(u'big_data/geonames.db')
     c = conn.cursor()
     root = tree.getroot()
     duplicates = set()
@@ -112,7 +112,7 @@ if False:
         for t in gold_tops:
             f.write(t + "||")
         f.write("\n")
-        f_out = codecs.open(u"../data/geovirus/" + str(c), 'w', "utf-8")  # Files saved by numbers
+        f_out = codecs.open(u"big_data/geovirus/" + str(c), 'w', "utf-8")  # Files saved by numbers
         f_out.write(text)
         f_out.close()
         c += 1
