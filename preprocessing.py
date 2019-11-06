@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import codecs
-import cPickle
+import pickle
 from collections import Counter
 import matplotlib.pyplot as plt
 import spacy
@@ -16,12 +16,12 @@ CONTEXT_LENGTH = 200  # each side of target entity
 UNKNOWN = u"<unknown>"
 EMBEDDING_DIMENSION = 50
 TARGET_LENGTH = 15
-ENCODING_MAP_1x1 = cPickle.load(open(u"data/1x1_encode_map.pkl"))      # We need these maps
-ENCODING_MAP_2x2 = cPickle.load(open(u"data/2x2_encode_map.pkl"))      # and the reverse ones
-REVERSE_MAP_1x1 = cPickle.load(open(u"data/1x1_reverse_map.pkl"))      # to handle the used and
-REVERSE_MAP_2x2 = cPickle.load(open(u"data/2x2_reverse_map.pkl"))      # unused map_vector polygons.
-OUTLIERS_MAP_1x1 = cPickle.load(open(u"data/1x1_outliers_map.pkl"))    # Outliers are redundant polygons that
-OUTLIERS_MAP_2x2 = cPickle.load(open(u"data/2x2_outliers_map.pkl"))    # have been removed but must also be handled.
+ENCODING_MAP_1x1 = pickle.load(open(u"data/1x1_encode_map.pkl"))      # We need these maps
+ENCODING_MAP_2x2 = pickle.load(open(u"data/2x2_encode_map.pkl"))      # and the reverse ones
+REVERSE_MAP_1x1 = pickle.load(open(u"data/1x1_reverse_map.pkl"))      # to handle the used and
+REVERSE_MAP_2x2 = pickle.load(open(u"data/2x2_reverse_map.pkl"))      # unused map_vector polygons.
+OUTLIERS_MAP_1x1 = pickle.load(open(u"data/1x1_outliers_map.pkl"))    # Outliers are redundant polygons that
+OUTLIERS_MAP_2x2 = pickle.load(open(u"data/2x2_outliers_map.pkl"))    # have been removed but must also be handled.
 # -------- GLOBAL CONSTANTS AND VARIABLES -------- #
 
 
@@ -461,7 +461,7 @@ def generate_vocabulary(path, min_words, min_entities):
 
     vocabulary = vocab_words.union(vocab_locations)
     word_to_index = dict([(w, i) for i, w in enumerate(vocabulary)])
-    cPickle.dump(word_to_index, open(u"data/words2index.pkl", "w"))
+    pickle.dump(word_to_index, open(u"data/words2index.pkl", "w"))
 
 
 def generate_arrays_from_file(path, words_to_index, train=True):
@@ -651,7 +651,7 @@ def shrink_map_vector(polygon_size):
         lat, lon = float(line[4]), float(line[5])
         index = coord_to_index((lat, lon), polygon_size=polygon_size)
         map_vector[index] += 1.0
-    cPickle.dump(map_vector, open(u"mapvec_shrink.pkl", "w"))
+    pickle.dump(map_vector, open(u"mapvec_shrink.pkl", "w"))
 
 
 def oracle(path):

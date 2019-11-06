@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import codecs
 import numpy as np
-import cPickle
+import pickle
 from keras import Input
 from keras.callbacks import ModelCheckpoint, EarlyStopping
 from keras.engine import Model
@@ -13,7 +13,7 @@ from subprocess import check_output
 
 print(u"Embedding Dimension:", EMBEDDING_DIMENSION)
 print(u"Input length (each side):", CONTEXT_LENGTH)
-word_to_index = cPickle.load(open(u"data/words2index.pkl"))
+word_to_index = pickle.load(open(u"data/words2index.pkl"))
 print(u"Vocabulary Size:", len(word_to_index))
 
 vectors = {UNKNOWN: np.ones(EMBEDDING_DIMENSION), u'0': np.ones(EMBEDDING_DIMENSION)}

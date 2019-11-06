@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import sqlite3
-import cPickle
+import pickle
 import numpy as np
 import spacy
 
@@ -98,8 +98,8 @@ def buildMapVec(text):
     :param text: to create the Map Vector from encoded as unicode.
     :return: currently only prints the vector, add 'return map_vector' or whatever you prefer.
     """
-    ENCODING_MAP = cPickle.load(open(u"data/1x1_encode_map.pkl"))  # the resolution of the map
-    OUTLIERS_MAP = cPickle.load(open(u"data/1x1_outliers_map.pkl"))  # dimensions must match the above
+    ENCODING_MAP = pickle.load(open(u"data/1x1_encode_map.pkl"))  # the resolution of the map
+    OUTLIERS_MAP = pickle.load(open(u"data/1x1_outliers_map.pkl"))  # dimensions must match the above
     nlp = spacy.load(u'en_core_web_lg')  # or spacy.load(u'en') depending on your Spacy Download (simple or full)
     conn = sqlite3.connect(u'../data/geonames.db').cursor()  # this DB can be downloaded using the GitHub link
     map_vector = text2mapvec(doc=nlp(text), mapping=ENCODING_MAP, outliers=OUTLIERS_MAP, polygon_size=1, db=conn, exclude=u"Cairo")
