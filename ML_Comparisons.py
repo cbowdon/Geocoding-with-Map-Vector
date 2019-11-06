@@ -17,7 +17,7 @@ else:
 
 X, Y = [], []
 clf = MultinomialNB()
-classes = range(len(REVERSE_MAP_2x2))
+classes = list(range(len(REVERSE_MAP_2x2)))
 # clf = RandomForestClassifier()
 for (x, y) in generate_arrays_from_file_map2vec(u"../data/train_wiki_uniform.txt", looping=False):
     X.extend(x[0])
