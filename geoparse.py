@@ -15,7 +15,7 @@ model = load_model("big_data/weights")  # weights to be downloaded from Cambridg
 nlp = spacy.load(u'en_core_web_lg')  # or spacy.load(u'en') depending on your Spacy Download (simple or full)
 conn = sqlite3.connect(u'big_data/geonames.db').cursor()  # this DB can be downloaded using the GitHub link
 padding = nlp(u"0")[0]  # Do I need to explain? :-)
-word_to_index = pickle.load(open(u"data/words2index.pkl"))  # This is the vocabulary file
+word_to_index = pickle.load(open(u"data/words2index.pkl", "rb"))  # This is the vocabulary file
 
 for word in nlp.Defaults.stop_words:  # This is only necessary if you use the full Spacy English model
     lex = nlp.vocab[word]             # so if you use spacy.load(u'en'), you can comment this out.

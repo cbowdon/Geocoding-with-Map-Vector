@@ -19,7 +19,7 @@ else:
 
 saved_model_file = u"big_data/weights"
 print((u"Testing:", test_data, u"with weights:", saved_model_file))
-word_to_index = pickle.load(open(u"data/words2index.pkl"))  # This is the vocabulary file
+word_to_index = pickle.load(open(u"data/words2index.pkl", "rb"))  # This is the vocabulary file
 #  --------------------------------------------------------------------------------------------------------------------
 print(u'Loading model...')
 model = load_model(saved_model_file)
